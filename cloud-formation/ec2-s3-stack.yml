@@ -1,0 +1,54 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'Deploy an EC2 instance and an S3 bucket'
+
+Parameters:
+  # BucketName:
+  #   Type: String
+  #   Description: 'The name of the S3 bucket'
+  #Default: 'demo-s3'
+
+  InstanceType:
+    Type: String
+    Description: 'EC2 instance type'
+    Default: 't2.micro'
+    AllowedValues:
+      - t2.micro
+
+  ImageId:
+    Type: String
+    Description: 'AMI ID for the EC2 instance'
+    Default: 'ami-053a45fff0a704a47'
+
+  KeyName:
+    Type: AWS::EC2::KeyPair::KeyName
+    Description: 'Key pair name for SSH access'
+
+  VpcId:
+    Type: String
+    Description: 'VPC ID for the EC2 instance'
+    Default: 'vpc-0977d6e274954f035'
+
+  SubnetId:
+    Type: String
+    Description: 'Subnet ID for the EC2 instance'
+    Default: 'subnet-01b5de9df3e60a25e'
+
+Resources:
+  S3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      #BucketName: !Ref BucketName
+      BucketName: !Sub 'demo-s3-bucket-${AWS::AccountId}'
+      AccessControl: Private
+
+  EC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: !Ref InstanceType
+      ImageId: !Ref ImageId
+      KeyName: !Ref KeyName
+      VpcId: !Ref VpcId
+      SubnetId: !Ref SubnetId
+      Tags:
+        - Key: Name
+          Value: demo-ec2

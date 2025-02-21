@@ -1,0 +1,22 @@
+{
+  "name": "aws-cf-01",
+  "version": "1.0.0",
+  "description": "the aws cloud-formation learn",
+  "main": "index.js",
+  "scripts": {
+    "deploy:js": "node --env-file=.env scripts/create-stack.js",
+    "update:js": "node --env-file=.env scripts/update-stack.js",
+    
+    "deploy:sh": "bash cli/create-stack.sh",
+    "update:sh": "bash cli/update-stack.sh",
+    "delete:sh": "bash cli/delete-stack.sh",
+    "log:sh": "bash cli/log-stack.sh",
+    
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "mae6e",
+  "license": "ISC",
+  "dependencies": {
+    "@aws-sdk/client-cloudformation": "^3.750.0"
+  }
+}
